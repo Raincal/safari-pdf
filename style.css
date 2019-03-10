@@ -1,0 +1,42 @@
+#sbo-rt-content h1,
+#sbo-rt-content h2,
+#sbo-rt-content h3,
+#sbo-rt-content h4,
+#sbo-rt-content h5,
+#sbo-rt-content h6 {
+  font-family: Montserrat, Helvetica, sans-serif !important;
+  font-weight: 500;
+  line-height: 1.1;
+}
+body.reading,
+#sbo-rt-content {
+  font-family: Lato, Helvetica, sans-serif !important;
+  padding: 0px !important;
+}
+.sbo-reading-menu,
+.t-topbar,
+.sbo-nav-top,
+.sbo-nav-bottom,
+.interface-controls,
+#js-subscribe-nag,
+footer {
+  display: none;
+}
+img {
+  height: auto;
+}
+#sbo-rt-content pre {
+  white-space: pre-wrap !important;
+  border: 1px solid #ccc;
+  border-left: 10px solid #358ccb;
+}
+#sbo-rt-content a {
+  font-family: inherit !important;
+  color: #ec6611 !important;
+  border-bottom: none !important;
+}
+kbd {
+  font-family: Menlo, Monaco, Consolas, Courier New, monospace !important;
+  color: #c7254e;
+  background-color: #f9f2f4 !important;
+}
