@@ -23,7 +23,7 @@ footer {
   display: none;
 }
 img {
-  height: auto;
+  height: auto !important;
 }
 #sbo-rt-content pre {
   white-space: pre-wrap !important;
