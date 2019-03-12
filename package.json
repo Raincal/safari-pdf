@@ -4,13 +4,15 @@
   "main": "index.js",
   "license": "MIT",
   "scripts": {
-    "clean": "rm -r pdf/*.pdf"
+    "start": "node index.js",
+    "clean": "rm -r data/tmp/*.pdf",
+    "clean:browser": "rm -rf data/browser"
   },
   "dependencies": {
     "chalk": "^2.4.2",
     "dotenv": "^6.2.0",
     "easy-pdf-merge": "^0.2.1",
-    "puppeteer": "^1.13.0",
+    "puppeteer-core": "^1.13.0",
     "queue": "^6.0.0"
   },
   "devDependencies": {

@@ -1,5 +1,5 @@
 const fs = require('fs')
-const puppeteer = require('puppeteer')
+const puppeteer = require('puppeteer-core')
 const chalk = require('chalk')
 const Queue = require('queue')
 const merge = require('easy-pdf-merge')
@@ -15,11 +15,8 @@ class Safari {
     this.resultList = []
   }
 
-  async _lanchBrowser(flag = true) {
-    this.browser = await puppeteer.launch({
-      headless: flag,
-      userDataDir: './data'
-    })
+  async _lanchBrowser() {
+    this.browser = await puppeteer.launch({ ...this.options.launchOptions })
     this.page = await this.browser.newPage()
     await this.page.setDefaultNavigationTimeout(this.options.defaultTimeout)
   }
@@ -42,7 +39,7 @@ class Safari {
     if (!email || !password)
       throw new Error('Please type your email and password in .env file!')
     if (!bookUrl) throw new Error('Please enter book url after node index.js')
-    if (!this.page) await this._lanchBrowser(true)
+    if (!this.page) await this._lanchBrowser()
 
     await this.page.goto(bookUrl, { waitUntil: 'networkidle0' })
 
@@ -123,16 +120,10 @@ class Safari {
   async createPdf(urlItem, i) {
     const {
       browser,
-      options: {
-        format,
-        margin,
-        displayHeaderFooter,
-        headerTemplate,
-        footerTemplate
-      }
+      options: { pdfOptions }
     } = this
     const filename = `${urlItem.id}_${urlItem.text}.pdf`
-    const path = `pdf/${filename}`
+    const path = `data/tmp/${filename}`
 
     if (fs.existsSync(path)) {
       log(chalk.yellow(`${filename} already exists`))
@@ -166,11 +157,7 @@ class Safari {
     await page.emulateMedia('screen')
     await page.pdf({
       path,
-      format,
-      margin,
-      displayHeaderFooter,
-      headerTemplate,
-      footerTemplate
+      ...pdfOptions
     })
     this.resultList.push({ path, idx: i })
     this.printProgress(urlItem)
@@ -179,7 +166,7 @@ class Safari {
 
   async mergePdf() {
     log(chalk.blue('Merge pdf'))
-    merge(this.resultList, `${this.title}.pdf`, err => {
+    merge(this.resultList, `data/book/${this.title}-${Date.now()}.pdf`, err => {
       if (err) throw new Error(err)
       log(chalk.green('Successfully merged!'))
     })
