@@ -7,12 +7,7 @@ const Safari = require('./safari')
 const log = console.log
 
 async function main() {
-  const safari = new Safari({
-    email: process.env.EMAIL,
-    password: process.env.PASSWORD,
-    bookUrl: process.argv[2] || process.env.BOOK_URL,
-    ...config
-  })
+  const safari = new Safari(config)
 
   try {
     await safari.start()
