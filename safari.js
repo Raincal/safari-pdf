@@ -1,17 +1,17 @@
 const fs = require('fs')
 const puppeteer = require('puppeteer')
 const chalk = require('chalk')
+const Queue = require('queue')
 const merge = require('easy-pdf-merge')
 
 const log = console.log
 
 class Safari {
   constructor(options) {
-    this.options = {
-      ...options
-    }
+    this.options = options
     this.browser = null
     this.page = null
+    this.urlList = []
     this.resultList = []
   }
 
@@ -90,7 +90,7 @@ class Safari {
     // 获取书本名称
     this.title = await this.page.evaluate(() => document.title)
     // 获取所有链接
-    let urls = await this.page.evaluate(() => {
+    this.urlList = await this.page.evaluate(() => {
       let id = 0
       const links = [...document.querySelectorAll('.t-chapter')]
       return links.map(a => {
@@ -102,17 +102,29 @@ class Safari {
       })
     })
 
-    for (let i = 0; i < urls.length; i++) {
-      const url = urls[i]
-      const currProgress = (((i + 1) / urls.length) * 100).toFixed(2)
-      log(chalk.cyan(`${currProgress}% ${url.text}`))
-      await this.createPdf(url)
+    const queue = new Queue({ concurrency: this.options.concurrency })
+    for (let i = 0; i < this.urlList.length; i++) {
+      const urlItem = this.urlList[i]
+      queue.push(() => {
+        return this.createPdf(urlItem, i)
+      })
     }
+
+    return new Promise((resolve, reject) => {
+      queue.start(err => {
+        if (err) return reject(err)
+        log(chalk.green('Download done!'))
+        this.resultList = this.resultList
+          .sort((a, b) => a.idx - b.idx)
+          .map(item => item.path)
+        resolve()
+      })
+    })
   }
 
-  async createPdf(url) {
+  async createPdf(urlItem, i) {
     const {
-      page,
+      browser,
       options: {
         format,
         margin,
@@ -121,16 +133,18 @@ class Safari {
         footerTemplate
       }
     } = this
-    const filename = `${url.id}_${url.text}.pdf`
+    const filename = `${urlItem.id}_${urlItem.text}.pdf`
     const path = `pdf/${filename}`
 
     if (fs.existsSync(path)) {
       log(chalk.yellow(`${filename} already exists`))
-      this.resultList.push(path)
+      this.resultList.push({ path, idx: i })
+      this.printProgress()
       return
     }
 
-    await page.goto(url.href, { waitUntil: 'networkidle0' })
+    const page = await browser.newPage()
+    await page.goto(urlItem.href, { waitUntil: 'networkidle0' })
     // 加入自定义样式
     await page.addStyleTag({
       url:
@@ -160,7 +174,9 @@ class Safari {
       headerTemplate,
       footerTemplate
     })
-    this.resultList.push(path)
+    this.resultList.push({ path, idx: i })
+    this.printProgress()
+    await page.close()
   }
 
   async mergePdf() {
@@ -169,6 +185,16 @@ class Safari {
       if (err) throw new Error(err)
       log(chalk.green('Successfully merged!'))
     })
+  }
+
+  printProgress() {
+    return log(
+      chalk.cyan(
+        `${((this.resultList.length / this.urlList.length) * 100).toFixed(
+          2
+        )}% ${urlItem.text}`
+      )
+    )
   }
 }
 

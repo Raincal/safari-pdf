@@ -1,5 +1,5 @@
 module.exports = {
-  skip: true,
+  concurrency: 5,
   defaultTimeout: 60000,
   format: 'A4',
   margin: {
