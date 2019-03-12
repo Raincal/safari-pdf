@@ -166,7 +166,7 @@ class Safari {
 
   async mergePdf() {
     log(chalk.blue('Merge pdf'))
-    merge(this.resultList, `data/book/${this.title}.pdf`, err => {
+    merge(this.resultList, `data/book/${this.title}-${Date.now()}.pdf`, err => {
       if (err) throw new Error(err)
       log(chalk.green('Successfully merged!'))
     })

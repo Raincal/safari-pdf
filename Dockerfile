@@ -6,7 +6,8 @@ RUN apk update && apk upgrade && \
   apk add --no-cache \
   chromium@edge \
   harfbuzz@edge \
-  nss@edge
+  nss@edge \
+  openjdk8
 
 ENV DOCKER=true
 ENV CONCURRENCY=5
