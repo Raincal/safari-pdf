@@ -133,6 +133,7 @@ class Safari {
     }
 
     const page = await browser.newPage()
+    await page.setDefaultNavigationTimeout(this.options.defaultTimeout)
     await page.goto(urlItem.href, { waitUntil: 'networkidle0' })
     // 加入自定义样式
     await page.addStyleTag({
