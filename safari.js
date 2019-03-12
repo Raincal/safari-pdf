@@ -105,9 +105,7 @@ class Safari {
     const queue = new Queue({ concurrency: this.options.concurrency })
     for (let i = 0; i < this.urlList.length; i++) {
       const urlItem = this.urlList[i]
-      queue.push(() => {
-        return this.createPdf(urlItem, i)
-      })
+      queue.push(() => this.createPdf(urlItem, i))
     }
 
     return new Promise((resolve, reject) => {
@@ -139,7 +137,7 @@ class Safari {
     if (fs.existsSync(path)) {
       log(chalk.yellow(`${filename} already exists`))
       this.resultList.push({ path, idx: i })
-      this.printProgress()
+      this.printProgress(urlItem)
       return
     }
 
@@ -175,7 +173,7 @@ class Safari {
       footerTemplate
     })
     this.resultList.push({ path, idx: i })
-    this.printProgress()
+    this.printProgress(urlItem)
     await page.close()
   }
 
@@ -187,7 +185,7 @@ class Safari {
     })
   }
 
-  printProgress() {
+  printProgress(urlItem) {
     return log(
       chalk.cyan(
         `${((this.resultList.length / this.urlList.length) * 100).toFixed(

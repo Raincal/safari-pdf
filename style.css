@@ -30,7 +30,7 @@ img {
   border: 1px solid #ccc;
   border-left: 10px solid #358ccb;
 }
-#sbo-rt-content a {
+#sbo-rt-content article a {
   font-family: inherit !important;
   color: #ec6611 !important;
   border-bottom: none !important;
