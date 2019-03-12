@@ -10,7 +10,7 @@ RUN apk update && apk upgrade && \
 
 ENV DOCKER=true
 ENV CONCURRENCY=5
-ENV DEFAUL_TTIMEOUT=60000
+ENV DEFAULT_TIMEOUT=60000
 ENV USER_DATA_DIR='data/browser'
 ENV EXECUTABLE_PATH='/usr/bin/chromium-browser'
 

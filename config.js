@@ -3,7 +3,7 @@ module.exports = {
   password: process.env.PASSWORD,
   bookUrl: process.argv[2] || process.env.BOOK_URL,
   concurrency: process.env.CONCURRENCY,
-  defaultTimeout: process.env.DEFAUL_TTIMEOUT,
+  defaultTimeout: process.env.DEFAULT_TIMEOUT,
   launchOptions: {
     args: process.env.DOCKER
       ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
