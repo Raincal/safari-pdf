@@ -4,6 +4,7 @@ module.exports = {
   bookUrl: process.argv[2] || process.env.BOOK_URL,
   concurrency: process.env.CONCURRENCY,
   defaultTimeout: process.env.DEFAULT_TIMEOUT,
+  maxHeap: process.env.MAX_HEAP,
   launchOptions: {
     args: process.env.DOCKER
       ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']

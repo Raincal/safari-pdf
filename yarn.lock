@@ -125,10 +125,9 @@ dotenv@^6.2.0:
   resolved "https://registry.yarnpkg.com/dotenv/-/dotenv-6.2.0.tgz#941c0410535d942c8becf28d3f357dbd9d476064"
   integrity sha512-HygQCKUBSFl8wKQZBSemMywRWcEDNidvNbjGVyZu3nbZ8qq9ubiPoGLMdRDpfSrpkkm9BXYFkpKxxFX38o/76w==
 
-easy-pdf-merge@^0.2.1:
+"easy-pdf-merge@https://github.com/Raincal/easy-pdf-merge#safari":
   version "0.2.1"
-  resolved "https://registry.yarnpkg.com/easy-pdf-merge/-/easy-pdf-merge-0.2.1.tgz#f1a4dfdabb391c3d6b3b17c1f84df14cf60b1df0"
-  integrity sha512-1r0rlM9XpUQ+1k+GiayLGfhM1WP4gLXDlWJM2thkokWRz1nHGZzwDWUMpNWZoVhCtWUEedDVsOVa4iDedcpw2Q==
+  resolved "https://github.com/Raincal/easy-pdf-merge#dcc1f2af19a2fc5205e4974e34177af2aa663abd"
 
 es6-promise@^4.0.3:
   version "4.2.6"

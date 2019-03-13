@@ -167,10 +167,15 @@ class Safari {
 
   async mergePdf() {
     log(chalk.blue('Merge pdf'))
-    merge(this.resultList, `data/book/${this.title}-${Date.now()}.pdf`, err => {
-      if (err) throw new Error(err)
-      log(chalk.green('Successfully merged!'))
-    })
+    merge(
+      this.resultList,
+      `data/book/${this.title}-${Date.now()}.pdf`,
+      { maxHeap: this.options.maxHeap },
+      err => {
+        if (err) throw new Error(err)
+        log(chalk.green('Successfully merged!'))
+      }
+    )
   }
 
   printProgress(urlItem) {
