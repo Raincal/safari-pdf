@@ -5,13 +5,16 @@
   "license": "MIT",
   "scripts": {
     "start": "node index.js",
+    "postinstall": "patch-package",
     "clean": "rm -r data/tmp/*.pdf",
     "clean:browser": "rm -rf data/browser"
   },
   "dependencies": {
     "chalk": "^2.4.2",
-    "dotenv": "^6.2.0",
-    "easy-pdf-merge": "https://github.com/Raincal/easy-pdf-merge#safari",
+    "dotenv": "^7.0.0",
+    "easy-pdf-merge": "^0.2.1",
+    "patch-package": "^6.0.5",
+    "postinstall-postinstall": "^2.0.0",
     "puppeteer-core": "^1.13.0",
     "queue": "^6.0.0"
   },
