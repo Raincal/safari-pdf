@@ -1,10 +1,9 @@
 const chalk = require('chalk')
-const { retry } = require('./helper')
 require('dotenv').config()
 
+const { retry, log } = require('./helper')
 const config = require('./config')
 const Safari = require('./safari')
-const { log } = require('./helper')
 
 async function main() {
   const safari = new Safari(config)
