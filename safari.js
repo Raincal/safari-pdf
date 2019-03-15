@@ -4,7 +4,7 @@ const chalk = require('chalk')
 const Queue = require('queue')
 const merge = require('easy-pdf-merge')
 
-const log = console.log
+const { log } = require('./helper')
 
 class Safari {
   constructor(options) {
@@ -52,7 +52,7 @@ class Safari {
     // 体验到期, 删除 cookie, 退出程序
     const expiredOverlay = await this.page.$('.expired')
     if (expiredOverlay) {
-      log(chalk.red('Your trial was expired!'))
+      log.error('Your trial was expired!')
       const cookies = await this.page.cookies()
       await this.page.deleteCookie(...cookies)
       process.exit()
@@ -63,7 +63,7 @@ class Safari {
     const { page } = this
     const homePage = 'https://learning.oreilly.com/home/'
 
-    log(chalk.blue('Logging in...'))
+    log.info('Logging in...')
 
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
@@ -108,7 +108,7 @@ class Safari {
     return new Promise((resolve, reject) => {
       queue.start(err => {
         if (err) return reject(err)
-        log(chalk.green('Download done!'))
+        log.success('Download done!')
         this.resultList = this.resultList
           .sort((a, b) => a.idx - b.idx)
           .map(item => item.path)
@@ -117,6 +117,7 @@ class Safari {
     })
   }
 
+  // 生成 PDF
   async createPdf(urlItem, i) {
     const {
       browser,
@@ -126,7 +127,7 @@ class Safari {
     const path = `data/tmp/${filename}`
 
     if (fs.existsSync(path)) {
-      log(chalk.yellow(`${filename} already exists`))
+      log.warn(`${filename} already exists`)
       this.resultList.push({ path, idx: i })
       this.printProgress(urlItem)
       return
@@ -165,26 +166,31 @@ class Safari {
     await page.close()
   }
 
+  /**
+   * 合并 PDF
+   */
   async mergePdf() {
-    log(chalk.blue('Merge pdf'))
+    log.info('Merge pdf')
     merge(
       this.resultList,
       `data/book/${this.title}-${Date.now()}.pdf`,
       { maxHeap: this.options.maxHeap },
       err => {
         if (err) throw new Error(err)
-        log(chalk.green('Successfully merged!'))
+        log.success('Successfully merged!')
       }
     )
   }
 
+  /**
+   * 打印当前进度
+   * @param {object} urlItem
+   */
   printProgress(urlItem) {
-    return log(
-      chalk.cyan(
-        `${((this.resultList.length / this.urlList.length) * 100).toFixed(
-          2
-        )}% ${urlItem.text}`
-      )
+    return log.info(
+      `${((this.resultList.length / this.urlList.length) * 100).toFixed(2)}% ${
+        urlItem.text
+      }`
     )
   }
 }

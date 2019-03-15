@@ -5,6 +5,7 @@ module.exports = {
   concurrency: process.env.CONCURRENCY,
   defaultTimeout: process.env.DEFAULT_TIMEOUT,
   maxHeap: process.env.MAX_HEAP,
+  maxRetryCount: process.env.MAX_RETRY_COUNT,
   launchOptions: {
     args: process.env.DOCKER
       ? ['--no-sandbox', '--disable-setuid-sandbox', '--disable-dev-shm-usage']
