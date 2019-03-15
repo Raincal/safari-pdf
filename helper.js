@@ -17,12 +17,12 @@ const log = {
  * @param {Number} retryDelay
  */
 const retry = async (fn, maxRetryCount = 3, retryDelay = 100) => {
-  for (let i = 0; i < maxRetryCount; i++) {
+  for (let i = 0; i <= maxRetryCount; i++) {
     try {
-      log.warn(`Retrying ${i + 1}`)
+      i > 0 && log.warn(`Retrying ${i}`)
       return await fn()
     } catch (e) {
-      if (i === maxRetryCount - 1) throw e
+      if (i === maxRetryCount) throw e
       await delay(retryDelay)
       retryDelay = retryDelay * 2
     }
