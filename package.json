@@ -16,10 +16,12 @@
     "patch-package": "^6.0.5",
     "postinstall-postinstall": "^2.0.0",
     "puppeteer-core": "^1.13.0",
-    "queue": "^6.0.0"
+    "queue": "^6.0.0",
+    "ramda": "^0.26.1"
   },
   "devDependencies": {
     "@types/chalk": "^2.2.0",
-    "@types/puppeteer": "^1.12.2"
+    "@types/puppeteer": "^1.12.3",
+    "@types/ramda": "^0.26.3"
   }
 }

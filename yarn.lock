@@ -14,12 +14,17 @@
   resolved "https://registry.yarnpkg.com/@types/node/-/node-11.11.0.tgz#070e9ce7c90e727aca0e0c14e470f9a93ffe9390"
   integrity sha512-D5Rt+HXgEywr3RQJcGlZUCTCx1qVbCZpVk3/tOOA6spLNZdGm8BU+zRgdRYDoF1pO3RuXLxADzMrF903JlQXqg==
 
-"@types/puppeteer@^1.12.2":
-  version "1.12.2"
-  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.12.2.tgz#5e3c8ab57fe3e0c9d75d8deeb6bf290b57321dd7"
-  integrity sha512-EGfxdNxqsEQiY6Ce+4rRD8PsDD18b5FWR+J/gWX7J/UKNRk1Pi9bircx0oADMNF2RdbyzmC+7TU95nwnerFwlA==
+"@types/puppeteer@^1.12.3":
+  version "1.12.3"
+  resolved "https://registry.yarnpkg.com/@types/puppeteer/-/puppeteer-1.12.3.tgz#1309882d368ed21004dfc4520864fdafcf126277"
+  integrity sha512-mJtUPdXqB8THRwiHPbx8pkGYi+8IPf3dMuwJS9hHpr59BwkuLDkkEJ4qMST0k6TbOUXp+wyMJii30ouSkoEtaw==
   dependencies:
     "@types/node" "*"
+
+"@types/ramda@^0.26.3":
+  version "0.26.3"
+  resolved "https://registry.yarnpkg.com/@types/ramda/-/ramda-0.26.3.tgz#e6c35cb0a75843c9cfe58e0be294ffbc4480f33e"
+  integrity sha512-ZTepXW1dgQySkTUbxb2JC61vJxnLqofq4S43rFWpobRRsDh9HgNQxjEWhjQcjoYAMhkyV8JsE9mhE7Pgo3AYbg==
 
 "@yarnpkg/lockfile@^1.1.0":
   version "1.1.0"
@@ -703,6 +708,11 @@ queue@^6.0.0:
   integrity sha512-gpUbFleAxTje0QND1EtRXJYvyhykgJnScMeaC9MMn+TEXWjcDSHAg7axcnDIwKrPosK7y84Y8AKX9GAc95xyAA==
   dependencies:
     inherits "~2.0.3"
+
+ramda@^0.26.1:
+  version "0.26.1"
+  resolved "https://registry.yarnpkg.com/ramda/-/ramda-0.26.1.tgz#8d41351eb8111c55353617fc3bbffad8e4d35d06"
+  integrity sha512-hLWjpy7EnsDBb0p+Z3B7rPi3GDeRG5ZtiI33kJhTt+ORCd38AbAIjB/9zRIUoeTbE/AVX5ZkU7m6bznsvrf8eQ==
 
 rc@^1.0.1, rc@^1.1.6:
   version "1.2.8"

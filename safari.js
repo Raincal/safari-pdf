@@ -3,6 +3,7 @@ const puppeteer = require('puppeteer-core')
 const chalk = require('chalk')
 const Queue = require('queue')
 const merge = require('easy-pdf-merge')
+const _ = require('ramda')
 
 const { log } = require('./helper')
 
@@ -87,17 +88,16 @@ class Safari {
     // 获取书本名称
     this.title = await this.page.evaluate(() => document.title)
     // 获取所有链接
-    this.urlList = await this.page.evaluate(() => {
+    const links = await this.page.evaluate(() => {
       let id = 0
       const links = [...document.querySelectorAll('.t-chapter')]
-      return links.map(a => {
-        return {
-          id: id++,
-          href: a.href.trim(),
-          text: a.innerText.trim().replace('/', ' ')
-        }
-      })
+      return links.map(link => ({
+        href: link.origin + link.pathname,
+        text: link.innerText.trim().replace('/', ' ')
+      }))
     })
+
+    this.urlList = _.uniqBy(link => link.href, links)
 
     const queue = new Queue({ concurrency: this.options.concurrency })
     for (let i = 0; i < this.urlList.length; i++) {
@@ -123,7 +123,7 @@ class Safari {
       browser,
       options: { pdfOptions }
     } = this
-    const filename = `${urlItem.id}_${urlItem.text}.pdf`
+    const filename = `${i}_${urlItem.text}.pdf`
     const path = `data/tmp/${filename}`
 
     if (fs.existsSync(path)) {
