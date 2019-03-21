@@ -93,7 +93,7 @@ class Safari {
       const links = [...document.querySelectorAll('.t-chapter')]
       return links.map(link => ({
         href: link.origin + link.pathname,
-        text: link.innerText.trim().replace('/', ' ')
+        text: link.innerText.trim().replace(/[\/|\$]/, ' ')
       }))
     })
 
