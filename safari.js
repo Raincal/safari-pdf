@@ -76,11 +76,11 @@ class Safari {
       return
     }
 
-    await page.type('#id_email', email)
-    await page.type('#id_password1', password)
+    await page.type('input[name="email"]', email)
+    await page.type('input[name="password"]', password)
     await Promise.all([
       page.waitForNavigation({ waitUntil: 'domcontentloaded' }),
-      page.click('#login.button-primary')
+      page.click('.src-Button-primary')
     ])
   }
 
