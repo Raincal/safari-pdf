@@ -123,7 +123,7 @@ class Safari {
       browser,
       options: { pdfOptions }
     } = this
-    const filename = `${i}_${urlItem.text}.pdf`
+    const filename = `${i}_${urlItem.text.replace(/\d+\.\s/, '').replace(/\s/, '_')}.pdf`
     const path = `data/tmp/${filename}`
 
     if (fs.existsSync(path)) {
@@ -189,7 +189,7 @@ class Safari {
   printProgress(urlItem) {
     return log.info(
       `${((this.resultList.length / this.urlList.length) * 100).toFixed(2)}% ${
-        urlItem.text
+      urlItem.text
       }`
     )
   }
